@@ -1,14 +1,10 @@
 <template>
   <Header/>
   <main class="container mx-[auto] px-[10px]">
-    <RouterView />
+    <RouterView/>
   </main>
 </template>
 
 <script setup lang="ts">
-import Header from '@/shared/Header/Header.vue'
+import {Header} from '@/widgets/index.ts'
 </script>
-
-<style scoped>
-
-</style>
