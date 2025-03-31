@@ -13,21 +13,5 @@
 </template>
 
 <script setup lang="ts">
-
-type link = {
-  name: string,
-  url: string
-}
-
-const links:link[] = [
-  {
-    name: "Форма",
-    url: "/"
-  },
-  {
-    name: "Список",
-    url: "result"
-  }
-]
-
+import {links} from '@/shared/constants/index.ts'
 </script>

@@ -1,7 +1,4 @@
-export type TCity = {
-    id: string
-    name: string
-}
+import type {link, TCity, TDepartments, TEmployees, TShifts, TTeams} from "@/shared/types";
 
 export const CITIES: TCity[] = [
     {id: "moscow", name: "Moscow"},
@@ -11,13 +8,7 @@ export const CITIES: TCity[] = [
     {id: "paris", name: "Paris"},
 ];
 
-export type TDepartments = {
-    id: string
-    cityId: TCity['id']
-    name: string
-}
-
-export const DEPARTMENTS = [
+export const DEPARTMENTS: TDepartments[] = [
     {id: "1", cityId: "moscow", name: "Цех 1"},
     {id: "2", cityId: "moscow", name: "Цех 2"},
     {id: "3", cityId: "moscow", name: "Цех 3"},
@@ -40,11 +31,6 @@ export const DEPARTMENTS = [
     {id: "20", cityId: "paris", name: "Цех 20"},
 ];
 
-export type TEmployees = {
-    id: string
-    departmentId: TDepartments['id']
-    name: string
-}
 export const EMPLOYEES: TEmployees[] = [
     {id: "e1", departmentId: "1", name: "Employee 1"},
     {id: "e2", departmentId: "1", name: "Employee 2"},
@@ -68,11 +54,6 @@ export const EMPLOYEES: TEmployees[] = [
     {id: "e20", departmentId: "8", name: "Employee 20"},
 ];
 
-export type TTeams = {
-    id: string
-    name: string
-}
-
 export const TEAMS: TTeams[] = [
     {id: "team-1", name: "Team 1"},
     {id: "team-2", name: "Team 2"},
@@ -84,12 +65,18 @@ export const TEAMS: TTeams[] = [
     {id: "team-8", name: "Team 8"},
 ];
 
-export type TShifts = {
-    id: string
-    name: string
-}
-
 export const SHIFTS: TShifts[] = [
     {id: "day", name: "Day"},
     {id: "night", name: "Night"},
 ];
+
+export const links:link[] = [
+    {
+        name: "Форма",
+        url: "/"
+    },
+    {
+        name: "Список",
+        url: "result"
+    }
+]

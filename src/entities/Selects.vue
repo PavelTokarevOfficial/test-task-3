@@ -1,35 +1,37 @@
 <template>
-  <Select label="Город" v-model="selectedCity" :options="convertToSelectOptions(CITIES)" />
-  <Select label="Цех" v-model="selectedWorkshop" :options="selectedCity ? convertToSelectOptions(filteredDepartments()) : []" />
-  <Select label="Сотрудник" v-model="selectedEmployee" :options="selectedWorkshop ? convertToSelectOptions(filteredEmployees()) : []" />
-  <Select label="Бригада" v-model="selectedBrigade" :options="selectedWorkshop ? convertToSelectOptions(TEAMS) : []" />
-  <Select  label="Смена" v-model="selectedShift" :options="selectedWorkshop ? convertToSelectOptions(SHIFTS) : []" />
+  <Select label="Город" v-model="selectValues.selectedCity" :options="convertToSelectOptions(CITIES)"/>
+  <Select label="Цех" v-model="selectValues.selectedWorkshop" :options="selectValues.selectedCity ? convertToSelectOptions(filteredDepartments()) : []"/>
+  <Select label="Сотрудник" v-model="selectValues.selectedEmployee" :options="selectValues.selectedWorkshop ? convertToSelectOptions(filteredEmployees()) : []"/>
+  <Select label="Бригада" v-model="selectValues.selectedBrigade" :options="selectValues.selectedWorkshop ? convertToSelectOptions(TEAMS) : []"/>
+  <Select label="Смена" v-model="selectValues.selectedShift" :options="selectValues.selectedWorkshop ? convertToSelectOptions(SHIFTS) : []"/>
 </template>
 
 <script setup lang="ts">
-import { ref, watch, defineProps } from "vue";
-import { CITIES, DEPARTMENTS, EMPLOYEES, SHIFTS, TEAMS } from "@/shared/constants/constants.ts";
-import { Select } from "@/shared/ui";
+import {reactive, watch} from "vue";
+import {CITIES, DEPARTMENTS, EMPLOYEES, SHIFTS, TEAMS} from "@/shared/constants/index.ts";
+import {Select} from "@/shared/ui";
 
-const props = defineProps(["newItem"]);
+const props = defineProps(["selectedValues"]);
 
-const selectedCity = ref("");
-const selectedWorkshop = ref("");
-const selectedEmployee = ref("");
-const selectedBrigade = ref("");
-const selectedShift = ref("");
+const selectValues = reactive({
+  selectedCity: "",
+  selectedWorkshop: "",
+  selectedEmployee: "",
+  selectedBrigade: "",
+  selectedShift: ""
+});
 
-const filteredDepartments = () => DEPARTMENTS.filter(({ cityId }) => cityId === selectedCity.value);
-const filteredEmployees = () => EMPLOYEES.filter(({ departmentId }) => departmentId === selectedWorkshop.value);
+const filteredDepartments = () => DEPARTMENTS.filter(({cityId}) => cityId === selectValues.selectedCity);
+const filteredEmployees = () => EMPLOYEES.filter(({departmentId}) => departmentId === selectValues.selectedWorkshop);
 
 const convertToSelectOptions = (list: { id: string; name: string }[]) =>
-    list.map(({ id, name }) => ({ value: id, label: name }));
+    list.map(({id, name}) => ({value: id, label: name}));
 
-watch([selectedCity, selectedWorkshop, selectedEmployee, selectedBrigade, selectedShift], () => {
-  props.newItem.city = selectedCity.value;
-  props.newItem.workshop = selectedWorkshop.value;
-  props.newItem.employee = selectedEmployee.value;
-  props.newItem.brigade = selectedBrigade.value;
-  props.newItem.shift = selectedShift.value;
-}, { deep: true });
+watch(() => selectValues, () => {
+  props.selectedValues.city = selectValues.selectedCity;
+  props.selectedValues.workshop = selectValues.selectedWorkshop;
+  props.selectedValues.employee = selectValues.selectedEmployee;
+  props.selectedValues.brigade = selectValues.selectedBrigade;
+  props.selectedValues.shift = selectValues.selectedShift;
+}, {deep: true});
 </script>

@@ -30,7 +30,7 @@
 </template>
 
 <script setup lang="ts">
-import type {TListItem} from "@/shared/types/types.ts";
+import type {TListItem} from "@/shared/types/index.ts";
 
 defineProps<{
   list:TListItem[]

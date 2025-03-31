@@ -14,11 +14,13 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{
+interface prodsSelect {
   label?: string;
   modelValue?: string;
   options: { value: string; label: string }[];
-}>();
+}
+
+defineProps<prodsSelect>();
 
 defineEmits(["update:modelValue"]);
 </script>
